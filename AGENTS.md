@@ -59,6 +59,7 @@ Equivale a `WORK_DIR=/root/build bash build_linux_portable.sh` e depois, na past
 ./update/update_comfyui_and_python_dependencies.sh
 ./run_cpu.sh   # http://127.0.0.1:8188
 ```
+Smoke test para o ambiente de destino (produção = container dentro de bare metal): `scripts/smoke_test.sh [-t tarball] [-s sha256] [-d dir] [-c checkpoint] [-w workflow.json] [-p porta]`. Só precisa de bash e do próprio pacote (usa o Python embarcado para HTTP); sobe o servidor com diretórios temporários e verifica ambiente (glibc, AVX2, limite de memória do cgroup, root/não-root, SELinux), integridade do pacote, versões, quick-test, endpoints, bind em loopback e, com `-c`/`-w`, um workflow real. Código de saída 1 se algo falhar. Validado no Rocky8 (WSL) como root e como usuário comum (19 checks, workflow SD1.5 em 24 s); o ramo de "escuta em todas as interfaces" foi validado separadamente.
 Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS` (torch/torchvision/torchaudio pinados), `WORK_DIR` (padrão `ComfyUI_linux/`).
 
 ## Repositório e releases
