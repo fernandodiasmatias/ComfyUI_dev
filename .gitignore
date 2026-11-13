@@ -1,0 +1,31 @@
+# Segredos e ambiente
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Editores e SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs e temporários
+*.log
+
+# Claude Code (config local)
+.claude/
+
+# Source upstream do ComfyUI (baixado, não faz parte deste projeto)
+ComfyUI_source/
+
+# Windows portable de referência (binários do release oficial)
+ComfyUI_windows/
+
+# Saída do build Linux (tar.xz, pasta extraída, imagem de teste)
+ComfyUI_linux/
