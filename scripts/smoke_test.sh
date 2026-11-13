@@ -112,7 +112,11 @@ if "$PY" -s -c 'import av, pygit2, aiohttp, PIL, safetensors, transformers' 2>"$
 else
     fail "import error: $(tail -n 1 "$TMP/imports.log")"
 fi
-if (cd "$DIR/ComfyUI" && git -c safe.directory='*' rev-parse --is-inside-work-tree >/dev/null 2>&1); then pass "ComfyUI git repo present (update scripts need it)"; else warn "ComfyUI is not a git repo: update scripts will fail"; fi
+if "$PY" -s -c 'import sys, pygit2; pygit2.option(pygit2.GIT_OPT_SET_OWNER_VALIDATION, 0); pygit2.Repository(sys.argv[1])' "$DIR/ComfyUI" 2>/dev/null; then
+    pass "ComfyUI git repo readable by pygit2 (update scripts need it)"
+else
+    warn "ComfyUI is not a readable git repo: update scripts will fail"
+fi
 
 echo "== ComfyUI quick test =="
 if "$PY" -s "$DIR/ComfyUI/main.py" --quick-test-for-ci --cpu --output-directory "$TMP/qt_out" --temp-directory "$TMP/qt_temp" --input-directory "$TMP/qt_in" > "$TMP/quick.log" 2>&1; then
