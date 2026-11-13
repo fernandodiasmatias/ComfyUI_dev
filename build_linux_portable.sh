@@ -56,6 +56,21 @@ cp "$SRC"/.ci/update_windows/update.py "$PORTABLE/update/"
 cp -r "$ROOT"/linux_base_files/* "$PORTABLE/"
 chmod +x "$PORTABLE"/*.sh "$PORTABLE"/update/*.sh
 
+# 5b. license texts and build info (GPL compliance for redistribution)
+"$PY" -s "$ROOT/scripts/collect_licenses.py" "$PORTABLE/THIRD_PARTY_LICENSES" "$PORTABLE/LICENSE"
+"$PY" -s "$ROOT/scripts/collect_npm_licenses.py" \
+    "$PORTABLE"/python_embeded/lib/python3.*/site-packages/comfyui_frontend_package/static \
+    "$PORTABLE/THIRD_PARTY_LICENSES/comfyui_frontend_npm"
+"$PY" -s -m pip freeze > "$PORTABLE/requirements-freeze.txt"
+{
+    echo "ComfyUI version: $(sed -n 's/^__version__ = "\(.*\)"/\1/p' "$SRC/comfyui_version.py")"
+    echo "ComfyUI git HEAD of the update repo (origin/master at build time): $(git -C "$PORTABLE/ComfyUI" rev-parse HEAD)"
+    echo "Python: $("$PY" -s -c 'import sys;print(sys.version)')"
+    echo "python-build-standalone tag: $PBS_TAG ($PY_URL)"
+    echo "torch pins: $TORCH_PINS (index https://download.pytorch.org/whl/cpu)"
+    echo "Built on: $(. /etc/os-release && echo "$PRETTY_NAME") on $(date -u +%Y-%m-%d)"
+} > "$PORTABLE/BUILD_INFO.txt"
+
 # 6. package
 tar -C "$OUT" -cf - ComfyUI_linux_portable | xz -9e -T0 > "$OUT/ComfyUI_linux_portable_cpu.tar.xz"
 if [ "$OUT" != "$ROOT/ComfyUI_linux" ]; then

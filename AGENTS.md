@@ -61,10 +61,34 @@ Equivale a `WORK_DIR=/root/build bash build_linux_portable.sh` e depois, na past
 ```
 Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS` (torch/torchvision/torchaudio pinados), `WORK_DIR` (padrão `ComfyUI_linux/`).
 
+## Repositório e releases
+- Repositório **público** (tornado público em 2026-11-13; a licença GPL-3.0 foi reconhecida pelo GitHub): `https://github.com/fernandodiasmatias/ComfyUI_dev` (branch `main`, remote `origin`). Versionados só os arquivos do projeto; `ComfyUI_source/`, `ComfyUI_windows/`, `ComfyUI_linux/` e `.claude/` estão no `.gitignore`. `.gitattributes` força LF em `.sh`/`.py`/`.md`/`.txt` e no `LICENSE`.
+- Como é público, tudo que for commitado ou anexado a releases fica visível: não versionar segredos, e-mails pessoais ou caminhos locais sensíveis.
+- `user.name`/`user.email` locais = `Fernando Matias` / noreply do GitHub (o global é um e-mail pessoal usado como nome).
+- Release pública: `v0.45.0-linux-cpu` (tag no commit do `main` na época da publicação; ao mudar o `main` de modo que afete o pacote, mover a tag com `git tag -f` + `git push --force origin refs/tags/<tag>`), com dois assets: `ComfyUI_linux_portable_cpu.tar.xz` (697.768.212 bytes, SHA256 `115F3D4DA4F60F19BC99D970B883A53E2A3B1C33E693743B17A6E48048BB0022`, Python 3.13.14, torch 2.14.1+cpu) e `ComfyUI_linux_portable_sources.tar.xz` (248.012.244 bytes, SHA256 `0FFE04A569A20BDA3AA01177010EA8D771712A080BC66309BBCC540CE15F5418`). O limite do GitHub é 2 GB por arquivo. Ao rebuildar, recalcular os hashes e atualizar as notas (`gh release upload --clobber` e `gh release edit --notes-file`).
+- GitHub CLI 2.104.0 instalado e logado (`fernandodiasmatias`), em `C:\Program Files\GitHub CLI\gh.exe` (pode não estar no PATH de sessões já abertas). Nova release: `gh release create <tag> <arquivo> --repo fernandodiasmatias/ComfyUI_dev --notes-file <notas>`.
+- Não fazer push, criar repositório ou release sem pedido explícito do usuário.
+
+## Licenças e preparação para ficar público
+- Licença do projeto: **GPL-3.0** (`LICENSE`, copiado do ComfyUI); README em pt-BR (`README.md`) e inglês (`README.en.md`).
+- O portable gerado inclui na raiz: `LICENSE`, `SOURCE_OFFER.txt` (fontes dos componentes GPL/LGPL + oferta escrita de 3 anos, via issues do repo), `BUILD_INFO.txt`, `requirements-freeze.txt` e `THIRD_PARTY_LICENSES/` (gerado por `scripts/collect_licenses.py` no build; 86 pacotes, nenhum `UNKNOWN`).
+- Pacotes sem licença na metadata, verificados nos repositórios upstream: `comfyui-frontend-package` e `comfy-aimdo` são GPL-3.0 (tabela `GPL3_OVERRIDES` no coletor; ao trocar versões, rever pacotes `UNKNOWN`).
+- Pontos de atenção: o PyAV traz FFmpeg com x264/x265 (GPL; patentes de H.264/H.265 variam por país); o bundle JS do frontend traz libs npm sem textos de licença; modelos baixados têm licenças próprias. Não é aconselhamento jurídico.
+- Código-fonte dos componentes GPL/LGPL: `scripts/fetch_sources.sh` (rodar no WSL, saída `ComfyUI_linux/ComfyUI_linux_portable_sources.tar.xz`, ~246 MB) baixa 25 tarballs (ComfyUI, frontend, aimdo, embedded-docs, pygit2/libgit2, PyAV, receita pyav-ffmpeg 9.0.2-1, FFmpeg 9.0.2, x264, x265, LAME, GnuTLS, Nettle, GMP, etc.) com `SOURCES_MANIFEST.txt` (SHA256 e URLs) e é anexado à mesma release do binário; o `SOURCE_OFFER.txt` do pacote aponta para ele. As versões vêm de `scripts/pkg.py` do `pyav-ffmpeg` na tag 9.0.2-1; ao mudar a versão do PyAV, atualizar a lista no script (o wheel pode ter sido construído com outra revisão do pyav-ffmpeg; ressalva registrada no manifesto).
+- Projeto não oficial: não usar o nome/logo do ComfyUI como marca própria; o README declara que não há vínculo com a Comfy Org.
+- Privacidade: o histórico foi reescrito para o autor `Fernando Matias <25366190+fernandodiasmatias@users.noreply.github.com>` (e-mail pessoal removido) com push forçado; `user.email` local aponta para o noreply. A release/tag foram recriadas porque a tag antiga mantinha o commit com o e-mail.
+
 ## Convenções
 - Scripts `.sh` com final de linha **LF** e `chmod +x`.
 - Não modificar `ComfyUI_source`.
 - Comandos `wsl ...` via PowerShell, não Git Bash (reescrita de caminhos `/mnt/...`).
 
 ## Status dos testes (Rocky 8)
-Passaram: extrair e abrir (Python 3.13.14, torch `2.14.1+cpu`), `--quick-test-for-ci --cpu`, mover a pasta e subir o servidor (`/`, `/system_stats`, `/object_info/KSampler`), `update_comfyui.sh` e `update_comfyui_and_python_dependencies.sh`, e um workflow real SD1.5 (256x256, 4 steps) em CPU, ~51 s, imagem salva (`ComfyUI_linux/cpu_test.png`).
+Passaram: extrair e abrir (Python 3.13.14, torch `2.14.1+cpu`), `--quick-test-for-ci --cpu`, mover a pasta e subir o servidor (`/`, `/system_stats`, `/object_info/KSampler`), `update_comfyui.sh` e `update_comfyui_and_python_dependencies.sh`, e um workflow real SD1.5 (256x256, 4 steps) em CPU, 21–51 s, imagem salva (`ComfyUI_linux/cpu_test.png`). O build final (com licenças e `SOURCE_OFFER.txt` apontando para o arquivo de fontes) repetiu o quick-test e os dois updates com sucesso; torch segue fixo em 2.14.1 após o update.
+
+## Estado final e pendências
+- Entregue: portable Linux (Rocky 8, CPU, Python 3.13.14, torch 2.14.1+cpu) igual ao Windows portable v0.45.0 nas versões; repositório público sob GPL-3.0 com release contendo o binário e o arquivo de fontes.
+- Resolvido no repositório (aguarda republicar a release): licenças das libs npm do bundle do frontend, coletadas por `scripts/collect_npm_licenses.py` (lê os source maps do wheel e busca licença/arquivos no registro do npm; 169 pacotes no frontend 1.58.5, 0 erros; 144 MIT, 13 Apache-2.0, 3 ISC, 2 GPL-3.0-only, 1 MPL-2.0 + `dompurify` MPL-2.0 OR Apache-2.0, etc.; `wwobjloader2` aparece UNKNOWN mas o LICENSE é MIT; Firebase (Apache-2.0) e `@comfyorg/comfyui-electron-types` (GPL-3.0) não trazem arquivo de licença no pacote npm) → `THIRD_PARTY_LICENSES/comfyui_frontend_npm/`; fontes upstream de `libdrm`, `libxcb` e `libXau` (MIT) adicionados ao arquivo de fontes.
+- Revisão do `pyav-ffmpeg`: o PyAV v19.0.2 fixa a 9.0.2-1 (`scripts/ffmpeg-latest.json`) e as libs do wheel batem com ela (SVT-AV1 4.2.0, oneVPL 2.16; as revisões -2/-3/-4 têm versões diferentes e acrescentam libass/freetype/harfbuzz). Não reconstruí o wheel; ao mudar a versão do PyAV, refazer essa checagem.
+- Pendências conhecidas: textos de licença ausentes nos pacotes npm do Firebase (Apache-2.0); patentes de H.264/H.265 por país; revisão jurídica antes de distribuição ampla.
+- Se o torch ou o Python do Windows portable mudarem, atualizar `PY_VERSION`/`PBS_TAG`/`TORCH_PINS`, os pins do `update_comfyui_and_python_dependencies.sh`, rebuildar, retestar e republicar release e hashes.
