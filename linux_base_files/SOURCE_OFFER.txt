@@ -12,7 +12,9 @@ This is an UNOFFICIAL repackaging. It is not affiliated with, endorsed by or sup
 2. Bundled third-party software
    ./python_embeded contains Python (python-build-standalone, PSF license) and the Python packages
    listed in ./THIRD_PARTY_LICENSES/SUMMARY.txt and ./requirements-freeze.txt, each under its own license.
-   The license texts shipped by each package are in ./THIRD_PARTY_LICENSES/.
+   The license texts shipped by each package are in ./THIRD_PARTY_LICENSES/. The npm packages bundled inside
+   the ComfyUI frontend (mostly MIT) are listed with their licenses in
+   ./THIRD_PARTY_LICENSES/comfyui_frontend_npm/NPM_SUMMARY.txt.
    Exact versions and sources used for this build are in ./BUILD_INFO.txt.
 
 3. Components under copyleft licenses and where to get their source

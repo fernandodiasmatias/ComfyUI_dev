@@ -58,6 +58,9 @@ chmod +x "$PORTABLE"/*.sh "$PORTABLE"/update/*.sh
 
 # 5b. license texts and build info (GPL compliance for redistribution)
 "$PY" -s "$ROOT/scripts/collect_licenses.py" "$PORTABLE/THIRD_PARTY_LICENSES" "$PORTABLE/LICENSE"
+"$PY" -s "$ROOT/scripts/collect_npm_licenses.py" \
+    "$PORTABLE"/python_embeded/lib/python3.*/site-packages/comfyui_frontend_package/static \
+    "$PORTABLE/THIRD_PARTY_LICENSES/comfyui_frontend_npm"
 "$PY" -s -m pip freeze > "$PORTABLE/requirements-freeze.txt"
 {
     echo "ComfyUI version: $(sed -n 's/^__version__ = "\(.*\)"/\1/p' "$SRC/comfyui_version.py")"

@@ -40,6 +40,9 @@ webp-1.6.0.tar.gz|libwebp 1.6.0|BSD-3-Clause|'$GH'/webmproject/libwebp/archive/r
 libpng-1.6.58.tar.xz|libpng 1.6.58|libpng license|https://downloads.sourceforge.net/project/libpng/libpng16/1.6.58/libpng-1.6.58.tar.xz
 vmaf-3.2.1.tar.gz|libvmaf 3.2.1|BSD-2-Clause + Patent|'$GH'/Netflix/vmaf/archive/refs/tags/v3.2.1.tar.gz
 libvpl-2.16.0.tar.gz|oneVPL 2.16.0|MIT|'$GH'/intel/libvpl/archive/refs/tags/v2.16.0.tar.gz
+libXau-1.0.9.tar.gz|libXau 1.0.9 (AlmaLinux 8 system lib in the PyAV wheel)|MIT|https://www.x.org/releases/individual/lib/libXau-1.0.9.tar.gz
+libdrm-2.4.115.tar.xz|libdrm 2.4.115 (AlmaLinux 8 system lib in the PyAV wheel)|MIT|https://dri.freedesktop.org/libdrm/libdrm-2.4.115.tar.xz
+libxcb-1.13.1.tar.gz|libxcb 1.13.1 (AlmaLinux 8 system lib in the PyAV wheel)|MIT|https://xcb.freedesktop.org/dist/libxcb-1.13.1.tar.gz
 '
 
 MANIFEST="$WORK/sources/SOURCES_MANIFEST.txt"
@@ -47,7 +50,7 @@ MANIFEST="$WORK/sources/SOURCES_MANIFEST.txt"
     echo "Corresponding source code for GPL/LGPL components of ComfyUI Linux Portable (CPU)."
     echo "FFmpeg/codec versions follow the pyav-ffmpeg 9.0.2-1 build recipe (scripts/pkg.py and patches/ in pyav-ffmpeg-9.0.2-1.tar.gz)."
     echo "The PyAV wheel in the package reports FFmpeg 9.0.2; the exact pyav-ffmpeg revision used by the wheel build"
-    echo "may differ in minor details. The system libraries of the wheel (libdrm, libxcb, libXau) are from AlmaLinux 8 (see av-*/sboms in THIRD_PARTY_LICENSES)."
+    echo "may differ in minor details. The system libraries of the wheel (libdrm, libxcb, libXau; MIT) come from AlmaLinux 8 packages (see av-*/sboms in THIRD_PARTY_LICENSES); the upstream release tarballs of the same versions are included."
     echo "ComfyUI itself is provided as Python source inside the package (./ComfyUI); the tarball here is the matching upstream tag."
     echo
     echo "filename | component | license | sha256 | url"
