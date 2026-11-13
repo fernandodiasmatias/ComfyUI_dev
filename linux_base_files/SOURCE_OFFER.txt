@@ -16,6 +16,14 @@ This is an UNOFFICIAL repackaging. It is not affiliated with, endorsed by or sup
    Exact versions and sources used for this build are in ./BUILD_INFO.txt.
 
 3. Components under copyleft licenses and where to get their source
+   The corresponding source code of the components below is published, together with this package, as the
+   release asset ComfyUI_linux_portable_sources.tar.xz at
+   https://github.com/fernandodiasmatias/ComfyUI_dev/releases (see SOURCES_MANIFEST.txt inside it for
+   versions, licenses, checksums and upstream URLs). It covers ComfyUI, the frontend, comfy-aimdo,
+   comfyui-embedded-docs, pygit2/libgit2, PyAV, FFmpeg 9.0.2 and its libraries (x264, x265, LAME, GnuTLS, Nettle,
+   GMP, libunistring, alsa-lib, Opus, dav1d, SVT-AV1, libvpx, libwebp, libvmaf, oneVPL, libpng) and the
+   pyav-ffmpeg build recipe.
+
    - ComfyUI (GPL-3.0): ./ComfyUI, and https://github.com/comfyanonymous/ComfyUI
    - comfyui-frontend-package (GPL-3.0): https://github.com/Comfy-Org/ComfyUI_frontend
    - comfy-aimdo (GPL-3.0): https://github.com/Comfy-Org/comfy-aimdo
@@ -29,9 +37,10 @@ This is an UNOFFICIAL repackaging. It is not affiliated with, endorsed by or sup
    - certifi, tqdm (MPL-2.0): source at their upstream projects (see SUMMARY.txt)
 
 4. Written offer
-   For at least three years from the date this package was distributed, you may request the
-   corresponding source code of any GPL/LGPL component listed above by opening an issue at
-   https://github.com/fernandodiasmatias/ComfyUI_dev/issues
+   The source archive above stays available next to the binary package for as long as the package is
+   distributed. If anything is missing, or for at least three years from the date this package was
+   distributed, you may request the corresponding source code of any GPL/LGPL component listed above by
+   opening an issue at https://github.com/fernandodiasmatias/ComfyUI_dev/issues
 
 5. No warranty
    This package is provided "as is", without warranty of any kind, as stated in the GPL-3.0.
