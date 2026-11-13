@@ -49,8 +49,8 @@ MANIFEST="$WORK/sources/SOURCES_MANIFEST.txt"
 {
     echo "Corresponding source code for GPL/LGPL components of ComfyUI Linux Portable (CPU)."
     echo "FFmpeg/codec versions follow the pyav-ffmpeg 9.0.2-1 build recipe (scripts/pkg.py and patches/ in pyav-ffmpeg-9.0.2-1.tar.gz)."
-    echo "The PyAV wheel in the package reports FFmpeg 9.0.2; the exact pyav-ffmpeg revision used by the wheel build"
-    echo "may differ in minor details. The system libraries of the wheel (libdrm, libxcb, libXau; MIT) come from AlmaLinux 8 packages (see av-*/sboms in THIRD_PARTY_LICENSES); the upstream release tarballs of the same versions are included."
+    echo "The PyAV 19.0.2 wheel in the package reports FFmpeg 9.0.2 and pins pyav-ffmpeg 9.0.2-1 (scripts/ffmpeg-latest.json in the PyAV tag v19.0.2);"
+    echo "the bundled libraries match that revision (e.g. SVT-AV1 4.2.0 and oneVPL 2.16, which differ in 9.0.2-2/-3/-4). The system libraries of the wheel (libdrm, libxcb, libXau; MIT) come from AlmaLinux 8 packages (see av-*/sboms in THIRD_PARTY_LICENSES); the upstream release tarballs of the same versions are included."
     echo "ComfyUI itself is provided as Python source inside the package (./ComfyUI); the tarball here is the matching upstream tag."
     echo
     echo "filename | component | license | sha256 | url"
