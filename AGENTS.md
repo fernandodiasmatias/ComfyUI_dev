@@ -61,6 +61,13 @@ Equivale a `WORK_DIR=/root/build bash build_linux_portable.sh` e depois, na past
 ```
 Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS` (torch/torchvision/torchaudio pinados), `WORK_DIR` (padrão `ComfyUI_linux/`).
 
+## Repositório e releases
+- Repositório **privado**: `https://github.com/fernandodiasmatias/ComfyUI_dev` (branch `main`, remote `origin`). Versionados só os arquivos do projeto; `ComfyUI_source/`, `ComfyUI_windows/`, `ComfyUI_linux/` e `.claude/` estão no `.gitignore`. `.gitattributes` força LF em `.sh`/`.md`/`.txt`.
+- `user.name` local = `Fernando Matias` (o global é um e-mail). O commit inicial `b90b604` mantém o autor antigo, por decisão do usuário (sem reescrever histórico).
+- Release: `v0.45.0-linux-cpu` com `ComfyUI_linux_portable_cpu.tar.xz` (697.623.092 bytes, SHA256 `E2EDD53425CFBA87D0507478B927D0C373A73FBAAEA40611688BE13EE9D9D108`, Python 3.13.14, torch 2.14.1+cpu). O limite do GitHub é 2 GB por arquivo.
+- GitHub CLI 2.104.0 instalado e logado (`fernandodiasmatias`), em `C:\Program Files\GitHub CLI\gh.exe` (pode não estar no PATH de sessões já abertas). Nova release: `gh release create <tag> <arquivo> --repo fernandodiasmatias/ComfyUI_dev --notes-file <notas>`.
+- Não fazer push, criar repositório ou release sem pedido explícito do usuário.
+
 ## Convenções
 - Scripts `.sh` com final de linha **LF** e `chmod +x`.
 - Não modificar `ComfyUI_source`.
