@@ -62,9 +62,10 @@ Equivale a `WORK_DIR=/root/build bash build_linux_portable.sh` e depois, na past
 Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS` (torch/torchvision/torchaudio pinados), `WORK_DIR` (padrão `ComfyUI_linux/`).
 
 ## Repositório e releases
-- Repositório **privado**: `https://github.com/fernandodiasmatias/ComfyUI_dev` (branch `main`, remote `origin`). Versionados só os arquivos do projeto; `ComfyUI_source/`, `ComfyUI_windows/`, `ComfyUI_linux/` e `.claude/` estão no `.gitignore`. `.gitattributes` força LF em `.sh`/`.md`/`.txt`.
+- Repositório **público** (tornado público em 2026-11-13; a licença GPL-3.0 foi reconhecida pelo GitHub): `https://github.com/fernandodiasmatias/ComfyUI_dev` (branch `main`, remote `origin`). Versionados só os arquivos do projeto; `ComfyUI_source/`, `ComfyUI_windows/`, `ComfyUI_linux/` e `.claude/` estão no `.gitignore`. `.gitattributes` força LF em `.sh`/`.py`/`.md`/`.txt` e no `LICENSE`.
+- Como é público, tudo que for commitado ou anexado a releases fica visível: não versionar segredos, e-mails pessoais ou caminhos locais sensíveis.
 - `user.name`/`user.email` locais = `Fernando Matias` / noreply do GitHub (o global é um e-mail pessoal usado como nome).
-- Release: `v0.45.0-linux-cpu` com dois assets: `ComfyUI_linux_portable_cpu.tar.xz` (697.806.368 bytes, SHA256 `E0CAFEF5B95EB01145C0121F6293A7B5A751A2AB806DE7374B6BA937419853F2`, Python 3.13.14, torch 2.14.1+cpu) e `ComfyUI_linux_portable_sources.tar.xz` (246.450.436 bytes, SHA256 `45674CC827AC1ECE6E7C698D40FE842CB224DBA53D43ACD774527D71A84F92FA`). O limite do GitHub é 2 GB por arquivo. Ao rebuildar, recalcular os hashes e atualizar as notas (`gh release upload --clobber` e `gh release edit --notes-file`).
+- Release pública: `v0.45.0-linux-cpu` (tag no commit `edb4255`, o mesmo do `main` na época; ao mudar o `main` de modo que afete o pacote, mover a tag com `git tag -f` + `git push --force origin refs/tags/<tag>`), com dois assets: `ComfyUI_linux_portable_cpu.tar.xz` (697.806.368 bytes, SHA256 `E0CAFEF5B95EB01145C0121F6293A7B5A751A2AB806DE7374B6BA937419853F2`, Python 3.13.14, torch 2.14.1+cpu) e `ComfyUI_linux_portable_sources.tar.xz` (246.450.436 bytes, SHA256 `45674CC827AC1ECE6E7C698D40FE842CB224DBA53D43ACD774527D71A84F92FA`). O limite do GitHub é 2 GB por arquivo. Ao rebuildar, recalcular os hashes e atualizar as notas (`gh release upload --clobber` e `gh release edit --notes-file`).
 - GitHub CLI 2.104.0 instalado e logado (`fernandodiasmatias`), em `C:\Program Files\GitHub CLI\gh.exe` (pode não estar no PATH de sessões já abertas). Nova release: `gh release create <tag> <arquivo> --repo fernandodiasmatias/ComfyUI_dev --notes-file <notas>`.
 - Não fazer push, criar repositório ou release sem pedido explícito do usuário.
 
@@ -83,4 +84,9 @@ Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS`
 - Comandos `wsl ...` via PowerShell, não Git Bash (reescrita de caminhos `/mnt/...`).
 
 ## Status dos testes (Rocky 8)
-Passaram: extrair e abrir (Python 3.13.14, torch `2.14.1+cpu`), `--quick-test-for-ci --cpu`, mover a pasta e subir o servidor (`/`, `/system_stats`, `/object_info/KSampler`), `update_comfyui.sh` e `update_comfyui_and_python_dependencies.sh`, e um workflow real SD1.5 (256x256, 4 steps) em CPU, ~51 s, imagem salva (`ComfyUI_linux/cpu_test.png`).
+Passaram: extrair e abrir (Python 3.13.14, torch `2.14.1+cpu`), `--quick-test-for-ci --cpu`, mover a pasta e subir o servidor (`/`, `/system_stats`, `/object_info/KSampler`), `update_comfyui.sh` e `update_comfyui_and_python_dependencies.sh`, e um workflow real SD1.5 (256x256, 4 steps) em CPU, 21–51 s, imagem salva (`ComfyUI_linux/cpu_test.png`). O build final (com licenças e `SOURCE_OFFER.txt` apontando para o arquivo de fontes) repetiu o quick-test e os dois updates com sucesso; torch segue fixo em 2.14.1 após o update.
+
+## Estado final e pendências
+- Entregue: portable Linux (Rocky 8, CPU, Python 3.13.14, torch 2.14.1+cpu) igual ao Windows portable v0.45.0 nas versões; repositório público sob GPL-3.0 com release contendo o binário e o arquivo de fontes.
+- Pendências conhecidas: licenças das libs npm dentro do bundle do frontend (não inspecionadas); fontes de `libdrm`/`libxcb`/`libXau` (AlmaLinux 8, libs do wheel do PyAV) não incluídos; revisão exata do `pyav-ffmpeg` usada pelo wheel pode diferir da 9.0.2-1; patentes de H.264/H.265 por país; revisão jurídica antes de distribuição ampla.
+- Se o torch ou o Python do Windows portable mudarem, atualizar `PY_VERSION`/`PBS_TAG`/`TORCH_PINS`, os pins do `update_comfyui_and_python_dependencies.sh`, rebuildar, retestar e republicar release e hashes.
