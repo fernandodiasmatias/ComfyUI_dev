@@ -1,0 +1,38 @@
+ComfyUI Linux Portable (CPU) - licenses and source code
+
+This is an UNOFFICIAL repackaging. It is not affiliated with, endorsed by or supported by Comfy Org.
+"ComfyUI" is the name of the upstream project (https://github.com/comfyanonymous/ComfyUI).
+
+1. License of this package
+   ComfyUI is licensed under the GNU General Public License v3.0 (see ./LICENSE and ./ComfyUI/LICENSE).
+   The ComfyUI Python source in ./ComfyUI is the complete corresponding source for ComfyUI itself.
+   The scripts that build this package are GPL-3.0 as well:
+   https://github.com/fernandodiasmatias/ComfyUI_dev
+
+2. Bundled third-party software
+   ./python_embeded contains Python (python-build-standalone, PSF license) and the Python packages
+   listed in ./THIRD_PARTY_LICENSES/SUMMARY.txt and ./requirements-freeze.txt, each under its own license.
+   The license texts shipped by each package are in ./THIRD_PARTY_LICENSES/.
+   Exact versions and sources used for this build are in ./BUILD_INFO.txt.
+
+3. Components under copyleft licenses and where to get their source
+   - ComfyUI (GPL-3.0): ./ComfyUI, and https://github.com/comfyanonymous/ComfyUI
+   - comfyui-frontend-package (GPL-3.0): https://github.com/Comfy-Org/ComfyUI_frontend
+   - comfy-aimdo (GPL-3.0): https://github.com/Comfy-Org/comfy-aimdo
+   - comfyui-embedded-docs (GPL-3.0): https://github.com/Comfy-Org/embedded-docs
+   - pygit2 / libgit2 (GPLv2 with linking exception): https://github.com/libgit2/pygit2
+   - PyAV (BSD-3-Clause) ships FFmpeg, x264 and x265 libraries (GPL/LGPL) inside python_embeded/lib/python3.13/site-packages/av.libs.
+     Their source and build information are described in the package files under
+     THIRD_PARTY_LICENSES/av-*/ (including the SBOM) and at https://github.com/PyAV-Org/PyAV
+     and https://ffmpeg.org/download.html, https://www.videolan.org/developers/x264.html,
+     https://www.videolan.org/developers/x265.html
+   - certifi, tqdm (MPL-2.0): source at their upstream projects (see SUMMARY.txt)
+
+4. Written offer
+   For at least three years from the date this package was distributed, you may request the
+   corresponding source code of any GPL/LGPL component listed above by opening an issue at
+   https://github.com/fernandodiasmatias/ComfyUI_dev/issues
+
+5. No warranty
+   This package is provided "as is", without warranty of any kind, as stated in the GPL-3.0.
+   Model files are NOT included; models you download have their own licenses and terms.

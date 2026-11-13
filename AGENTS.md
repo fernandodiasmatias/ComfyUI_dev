@@ -63,10 +63,18 @@ Variáveis do script: `PY_VERSION` (3.13.14), `PBS_TAG` (20260610), `TORCH_PINS`
 
 ## Repositório e releases
 - Repositório **privado**: `https://github.com/fernandodiasmatias/ComfyUI_dev` (branch `main`, remote `origin`). Versionados só os arquivos do projeto; `ComfyUI_source/`, `ComfyUI_windows/`, `ComfyUI_linux/` e `.claude/` estão no `.gitignore`. `.gitattributes` força LF em `.sh`/`.md`/`.txt`.
-- `user.name` local = `Fernando Matias` (o global é um e-mail). O commit inicial `b90b604` mantém o autor antigo, por decisão do usuário (sem reescrever histórico).
+- `user.name`/`user.email` locais = `Fernando Matias` / noreply do GitHub (o global é um e-mail pessoal usado como nome).
 - Release: `v0.45.0-linux-cpu` com `ComfyUI_linux_portable_cpu.tar.xz` (697.623.092 bytes, SHA256 `E2EDD53425CFBA87D0507478B927D0C373A73FBAAEA40611688BE13EE9D9D108`, Python 3.13.14, torch 2.14.1+cpu). O limite do GitHub é 2 GB por arquivo.
 - GitHub CLI 2.104.0 instalado e logado (`fernandodiasmatias`), em `C:\Program Files\GitHub CLI\gh.exe` (pode não estar no PATH de sessões já abertas). Nova release: `gh release create <tag> <arquivo> --repo fernandodiasmatias/ComfyUI_dev --notes-file <notas>`.
 - Não fazer push, criar repositório ou release sem pedido explícito do usuário.
+
+## Licenças e preparação para ficar público
+- Licença do projeto: **GPL-3.0** (`LICENSE`, copiado do ComfyUI); README em pt-BR (`README.md`) e inglês (`README.en.md`).
+- O portable gerado inclui na raiz: `LICENSE`, `SOURCE_OFFER.txt` (fontes dos componentes GPL/LGPL + oferta escrita de 3 anos, via issues do repo), `BUILD_INFO.txt`, `requirements-freeze.txt` e `THIRD_PARTY_LICENSES/` (gerado por `scripts/collect_licenses.py` no build; 86 pacotes, nenhum `UNKNOWN`).
+- Pacotes sem licença na metadata, verificados nos repositórios upstream: `comfyui-frontend-package` e `comfy-aimdo` são GPL-3.0 (tabela `GPL3_OVERRIDES` no coletor; ao trocar versões, rever pacotes `UNKNOWN`).
+- Pontos de atenção: o PyAV traz FFmpeg com x264/x265 (GPL; patentes de H.264/H.265 variam por país); a oferta de código aponta para os repositórios upstream e não hospeda os fontes (anexar um arquivo de fontes à release seria mais seguro); o bundle JS do frontend traz libs npm sem textos de licença; modelos baixados têm licenças próprias. Não é aconselhamento jurídico.
+- Projeto não oficial: não usar o nome/logo do ComfyUI como marca própria; o README declara que não há vínculo com a Comfy Org.
+- Privacidade: o histórico foi reescrito para o autor `Fernando Matias <25366190+fernandodiasmatias@users.noreply.github.com>` (e-mail pessoal removido) com push forçado; `user.email` local aponta para o noreply. A release/tag foram recriadas porque a tag antiga mantinha o commit com o e-mail.
 
 ## Convenções
 - Scripts `.sh` com final de linha **LF** e `chmod +x`.
