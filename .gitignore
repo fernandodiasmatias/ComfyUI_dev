@@ -29,3 +29,9 @@ ComfyUI_windows/
 
 # Saída do build Linux (tar.xz, pasta extraída, imagem de teste)
 ComfyUI_linux/
+
+# Patches locais do plugin Deadline da farm (nao fazem parte do projeto)
+deadline_patches/
+
+# Documentacao da pipeline CBFX_AI (local, nao versionar)
+CBFX_AI_docs/
